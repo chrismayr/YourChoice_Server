@@ -1,4 +1,76 @@
-{"text":"ISO","imageUrl":null,"isSolution":false,"_id":"0H5SgoRdaXXcbyjt"}
-{"text":"HTTP","imageUrl":null,"isSolution":true,"_id":"0IKK7Qd1amW7B3Ta"}
-{"text":"SMTP","imageUrl":null,"isSolution":false,"_id":"iSCtEsHvlNl28H1j"}
-{"text":"IMAP","imageUrl":null,"isSolution":false,"_id":"liJDwcc3eV0QIMky"}
+{"text":"Node.js","imageUrl":null,"isSolution":false,"_id":"yjtYH4J4vXZCv9oC"}
+{"text":"AngularJS","imageUrl":null,"isSolution":false,"_id":"figlcyoqCQY6XQlm"}
+{"text":"Ember.js","imageUrl":null,"isSolution":true,"_id":"hXfOXjklI4y2UYLc"}
+{"text":"jQuery","imageUrl":null,"isSolution":false,"_id":"y6yeEqf4iLtbpGbT"}
+{"text":"open-source","imageUrl":null,"isSolution":true,"_id":"pe1keAekJJPgt6iP"}
+{"text":"client-side","imageUrl":null,"isSolution":true,"_id":"xJIPSose99ziwdWy"}
+{"text":"a functional programming language","imageUrl":null,"isSolution":false,"_id":"uT3wjSKYyonfaJKT"}
+{"text":"a wireless networking chip company","imageUrl":null,"isSolution":false,"_id":"uWohbAPhmsS6Uo7c"}
+{"text":"JavaScript web application framework","imageUrl":null,"isSolution":true,"_id":"RUZAL6J7tOUxgv19"}
+{"text":"glowing hot coals from carbon-based material","imageUrl":null,"isSolution":false,"_id":"lW52ywqcuCSmr7S0"}
+{"text":"based on model-view-controller (MVC) software architectural pattern","imageUrl":null,"isSolution":true,"_id":"eF78egn51foMDYBW"}
+{"text":"Java library","imageUrl":null,"isSolution":false,"_id":"zSLxUYMq0nFNP1hL"}
+{"text":"Java","imageUrl":null,"isSolution":false,"_id":"tcj0RQaHI1YaYiDc"}
+{"text":"JavaScript","imageUrl":null,"isSolution":true,"_id":"WBO0CPR0qvXj2lJ3"}
+{"text":"C++","imageUrl":null,"isSolution":false,"_id":"TC1vN7xrVy2kpFBp"}
+{"text":".Net","imageUrl":null,"isSolution":false,"_id":"mWeJjBkSrdahXdig"}
+{"text":"<javascript>","imageUrl":null,"isSolution":false,"_id":"oh9k4b8g9Kip098B"}
+{"text":"<script>","imageUrl":null,"isSolution":true,"_id":"g1bnaaJWKLgRVNv2"}
+{"text":"<js>","imageUrl":null,"isSolution":false,"_id":"OGg3ZhvvCCu1tzRR"}
+{"text":"<scripting>","imageUrl":null,"isSolution":false,"_id":"pyKP2pRSLIu1HkQw"}
+{"text":"document.write('Hello World');","imageUrl":null,"isSolution":true,"_id":"OIapKT5zXQUDALkE"}
+{"text":"('Hello World');","imageUrl":null,"isSolution":false,"_id":"XqfAlgnHVRJHWiGA"}
+{"text":"response.write('Hello World');","imageUrl":null,"isSolution":false,"_id":"TLZZGFZoYt2Ov2oV"}
+{"text":"echo 'Hello World';","imageUrl":null,"isSolution":false,"_id":"X1aVNM5MBeUdFZav"}
+{"text":"Both the <head> section and the <body> section are correct","imageUrl":null,"isSolution":true,"_id":"x5P4k9H8T12CydJw"}
+{"text":"The <head> section","imageUrl":null,"isSolution":false,"_id":"DD1OS9ZWOaulDW7e"}
+{"text":"The <body> section","imageUrl":null,"isSolution":false,"_id":"PcCCnQA0Yu5XIdJo"}
+{"text":"<script href=\"xxx.js\">","imageUrl":null,"isSolution":false,"_id":"oevGcfxBGN1N58pv"}
+{"text":"<script name=\"xxx.js\">","imageUrl":null,"isSolution":false,"_id":"h85xfgZ7joROHjgy"}
+{"text":"<script src=\"xxx.js\">","imageUrl":null,"isSolution":true,"_id":"HBLpCTbXrlXBUKLW"}
+{"text":"True","imageUrl":null,"isSolution":false,"_id":"sROtPqacEcTaAhoq"}
+{"text":"False","imageUrl":null,"isSolution":true,"_id":"r9Bnxmc2DJqX5r7j"}
+{"text":"msgBox(\"Hello World\");","imageUrl":null,"isSolution":false,"_id":"nnSg7lzVX9rXkuHR"}
+{"text":"alert(\"Hello World\");","imageUrl":null,"isSolution":true,"_id":"mUqE4EAhQAQw27Ph"}
+{"text":"alertBox(\"Hello World\");","imageUrl":null,"isSolution":false,"_id":"1Dr1YgjzVBBpeFAo"}
+{"text":"msg(\"Hello World\");","imageUrl":null,"isSolution":false,"_id":"k9e3graUPGK49Kgi"}
+{"text":"function myFunction()","imageUrl":null,"isSolution":true,"_id":"Ndq8djuuyiFFxfjp"}
+{"text":"function:myFunction()","imageUrl":null,"isSolution":false,"_id":"McPqsVWcd8pYOVAy"}
+{"text":"function = myFunction()","imageUrl":null,"isSolution":false,"_id":"JDEM2nTQSIlPbsOU"}
+{"text":"call myFunction()","imageUrl":null,"isSolution":false,"_id":"OrMKTjVmivbORbeX"}
+{"text":"call function myFunction()","imageUrl":null,"isSolution":false,"_id":"MBwaXKvjm1pidCqp"}
+{"text":"myFunction()","imageUrl":null,"isSolution":true,"_id":"tP270ACPtYOR1Sud"}
+{"text":"Italian Technical-Death-Metal-Band","imageUrl":null,"isSolution":false,"_id":"Tvt5eXHb7vKiJjPD"}
+{"text":"specific node in graph theory","imageUrl":null,"isSolution":false,"_id":"ma503mSLiyYcqvgf"}
+{"text":"Performant standalone JS-Engine","imageUrl":null,"isSolution":true,"_id":"r8oNCiME79gntzAR"}
+{"text":"Modular, expandable environment","imageUrl":null,"isSolution":true,"_id":"wXGn8uFu7lJ5hp0w"}
+{"text":"Java library","imageUrl":null,"isSolution":false,"_id":"vDRlLIm4PkMtjAOK"}
+{"text":"Reactive, non-blocking IO-blocks","imageUrl":null,"isSolution":true,"_id":"vd4wyca21DryVzt1"}
+{"text":"durable","imageUrl":null,"isSolution":false,"_id":"uDWYjtkDf0kQUzkx"}
+{"text":"isolated","imageUrl":null,"isSolution":false,"_id":"K5ycwBntmrGTfKJ2"}
+{"text":"consistent","imageUrl":null,"isSolution":false,"_id":"6FYrUz0Ll3gdLgNB"}
+{"text":"event-triggered","imageUrl":null,"isSolution":true,"_id":"6RqOHCfcSddl2F9F"}
+{"text":"atomic","imageUrl":null,"isSolution":false,"_id":"j1oUT5iD8KrXEaDP"}
+{"text":"scalable","imageUrl":null,"isSolution":true,"_id":"4siIHn3mt2ESOLSi"}
+{"text":"robust","imageUrl":null,"isSolution":true,"_id":"kyowluCBwrmP6i94"}
+{"text":"SMART","imageUrl":null,"isSolution":false,"_id":"4EAezgVQsEHu0yJJ"}
+{"text":"responsive","imageUrl":null,"isSolution":true,"_id":"g5dX1ZlgjEWAZCxo"}
+{"text":"load('http')","imageUrl":null,"isSolution":false,"_id":"SoZE0OgW36EO7Fqo"}
+{"text":"require('http')","imageUrl":null,"isSolution":true,"_id":"hxIhuFLDrlbbfJcV"}
+{"text":"import('http')","imageUrl":null,"isSolution":false,"_id":"Fy0JnQUQtJcTVt86"}
+{"text":"get('http')","imageUrl":null,"isSolution":false,"_id":"XtkfS5ehkkntBvXa"}
+{"text":"Structure (components of the module)","imageUrl":null,"isSolution":true,"_id":"wbyxgNBoRisV0m8a"}
+{"text":"Main entry point","imageUrl":null,"isSolution":true,"_id":"nJJpNBVyy5uAuxDl"}
+{"text":"Routes","imageUrl":null,"isSolution":false,"_id":"9VcVFbhnDUpTXsY8"}
+{"text":"UI","imageUrl":null,"isSolution":false,"_id":"HMS5sQDCwgmAFPQ4"}
+{"text":"Router","imageUrl":null,"isSolution":false,"_id":"mWW6XAFoxJMdDsrT"}
+{"text":"Version","imageUrl":null,"isSolution":true,"_id":"Eo5VWEAjvJ2fXkfe"}
+{"text":"Database connection","imageUrl":null,"isSolution":false,"_id":"FRYAPAXORjTPqU2r"}
+{"text":"Database structure","imageUrl":null,"isSolution":false,"_id":"SsH2dqpNhGQaoqgx"}
+{"text":"Dependencies","imageUrl":null,"isSolution":true,"_id":"mrRGTEFghTqrHJQJ"}
+{"text":"install nodejs express","imageUrl":null,"isSolution":false,"_id":"KCArWG37LAPw8lkm"}
+{"text":"install express","imageUrl":null,"isSolution":false,"_id":"rzOZhOHZrFUe8Nid"}
+{"text":"install npm express","imageUrl":null,"isSolution":false,"_id":"2BNRoh56Fb7jP4Tt"}
+{"text":"install npm - if express is listed in package.json","imageUrl":null,"isSolution":false,"_id":"zlRfOxCUrmNGOkNS"}
+{"text":"npm install - if express is listed in package.json","imageUrl":null,"isSolution":true,"_id":"ResBGgDJuaKtpZnG"}
+{"text":"npm install express","imageUrl":null,"isSolution":true,"_id":"Dc2nroTtovk2fLAq"}
