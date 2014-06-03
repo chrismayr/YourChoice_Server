@@ -34,12 +34,12 @@ app.use(session({ secret: 'mychoice rocks', cookie: { maxAge: 60000 } }));
 
 // REGISTER OUR ROUTES
 var routes = [
-  { model: 'quiz', resource: 'quizzes' },
-  { model: 'tag', resource: 'tags' },
+  { model: 'quiz', resource: 'quizzes', customValidation: true },
+  { model: 'tag', resource: 'tags', customValidation: true },
   { model: 'user', resource: 'users', customValidation: true },
-  { model: 'section', resource: 'sections' },
-  { model: 'question', resource: 'questions' },
-  { model: 'choice', resource: 'choices' },
+  { model: 'section', resource: 'sections', customValidation: true },
+  { model: 'question', resource: 'questions', customValidation: true },
+  { model: 'choice', resource: 'choices', customValidation: true },
   { model: 'answeredQuiz', resource: 'answeredQuizzes' },
   { model: 'answeredSection', resource: 'answeredSections' },
   { model: 'quiz_session', resource: 'quiz_sessions' },
