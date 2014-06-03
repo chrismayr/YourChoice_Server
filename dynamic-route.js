@@ -23,15 +23,12 @@ module.exports = function(route, router) {
 
   // either use a custom validation middleware (that also needs to include the authorization middleware)
   // or at least use standard authorization middleware
-  //TODO activate when implemented:
-  /*
   if (route.customValidation) {
     var validateRequest = require('./validations/' + resourceName);
     validateRequest(route, router); // validate request (with validation middleware)
   } else {
     router.use(authorizationMiddleware(route)); // check if user if authorized/logged in
   }
-  */
 
 // RETRIEVE all
   router.get('/' + resourceName, function(req, res) {
