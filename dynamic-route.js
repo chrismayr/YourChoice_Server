@@ -1,6 +1,5 @@
-var buildResponse = require('./utils/build-response');
-var findBy = require('./utils/find-by');
-var indexOf = require('./utils/index-in-array');
+var buildResponse = require('./utils/build-response'),
+    authorizationMiddleware = require('./utils/authorization-middleware');
 var Datastore = require('nedb');
 
 var db = {};
@@ -12,13 +11,29 @@ db.users = new Datastore({ filename: './data/users.db', autoload: true });
 db.answeredQuizzes = new Datastore({ filename: './data/answeredQuizzes.db', autoload: true });
 db.answeredSections = new Datastore({ filename: './data/answeredSections.db', autoload: true });
 db.quiz_sessions = new Datastore({ filename: './data/quiz_sessions.db', autoload: true });
-
 db.answeredQuestions = new Datastore({ filename: './data/answeredQuestions.db', autoload: true });
 db.questions = new Datastore({ filename: './data/questions.db', autoload: true });
 db.choices = new Datastore({ filename: './data/choices.db', autoload: true });
 
 
-module.exports = function(resourceName, router) {
+module.exports = function(route, router) {
+
+  var modelName = route.model,
+      resourceName = route.resource;
+
+  // either use a custom validation middleware (that also needs to include the authorization middleware)
+  // or at least use standard authorization middleware
+  //TODO activate when implemented:
+  /*
+  if (route.customValidation) {
+    var validateRequest = require('./validations/' + resourceName);
+    validateRequest(route, router); // validate request (with validation middleware)
+  } else {
+    router.use(authorizationMiddleware(route)); // check if user if authorized/logged in
+  }
+  */
+
+// RETRIEVE all
   router.get('/' + resourceName, function(req, res) {
     var result = [];
 	var collection = eval("db." + resourceName);
@@ -32,7 +47,8 @@ module.exports = function(resourceName, router) {
 		}); 	
     } 
   });
-
+  
+// RETRIEVE single
   router.get('/' + resourceName + '/:id', function(req, res) {
     var id = req.params.id;
     var collection = eval("db." + resourceName);
@@ -46,6 +62,7 @@ module.exports = function(resourceName, router) {
 	});
   });
 
+// DELETE single
   router.delete('/' + resourceName + '/:id', function(req, res) {
    var id = req.params.id;
    var collection = eval("db." + resourceName);
@@ -60,36 +77,39 @@ module.exports = function(resourceName, router) {
 	});//end db.remove
   });//end router.delete
 
-  router.post('/' + resourceName + '/:id', function(req, res) {
+
+// CREATE
+  router.post('/' + resourceName, function(req, res) {
+    var body = req.body;
+    if (body != undefined) {
+      var collection = eval("db." + resourceName);
+      var records = body[modelName];
+      collection.insert(records, function (err, newDocs) {
+        res.json( buildResponse(modelName, newDocs) );
+        res.status(201);
+	  });
+      
+    } else {
+      res.json( { status: "Cannot be stored in database. Please check the provided data (structure)!"} );
+      res.status(400);
+    }
+  });
+  
+// UPDATE single
+  router.put('/' + resourceName + '/:id', function(req, res) {
     var id = req.params.id,
         body = req.body;
-
-    if (body != undefined) {
+	if (body != undefined && body[resourceName] != undefined) {
    		var collection = eval("db." + resourceName);
 		var records = body[resourceName];
 		records.forEach(function(record) {
 			collection.update( {"_id":id},record, {}, function (err, numReplaced) {	
-				res.json( { status: "One of the "+ resourceName + " was updated successfully."} );
+				res.json( buildResponse(resourceName, [record]) );
 				res.status(201);
 			});
 		});  
     } else {
       res.json( { status: "One of the "+ resourceName + " couldn't be updated successfully."} );
-      res.status(400);
-    }
-  });
-
-  router.put('/' + resourceName, function(req, res) {
-    var body = req.body;
-    if (body != undefined) {
-      var collection = eval("db." + resourceName);
-      var records = body[resourceName];
-      collection.insert(records, function (err, newDocs) {
-		res.json( { status: "Successfully stored in database."} );
-	  });
-      
-    } else {
-      res.json( { status: "Cannot be stored in database. Please check the provided data (structure)!"} );
       res.status(400);
     }
   });
