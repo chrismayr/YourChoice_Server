@@ -11,6 +11,7 @@ module.exports = function (route) {
     if (curResource === resourceName) {
       if (username == undefined) {
         console.log('Authorization middleware: NOT authorized');
+        delete req.session.username;
         // throw new Unauthorized;  // TODO uncomment once session is used
       } else {
         console.log('Authorization middlware: Authorized');
