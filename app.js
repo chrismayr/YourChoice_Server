@@ -2,16 +2,15 @@
 // =============================================================================
 
 // call the packages we need
-var express    = require('express');    // call express
-var app        = express();         // define our app using express
-var bodyParser = require('body-parser');
-// var globSync = require('glob').sync;
-// var routes   = globSync('./routes/*.js', { cwd: __dirname }).map(require);
-var dynamicRoute = require('./dynamic-route');
 
-// configure app to use bodyParser()
-// this will let us get the data from a POST
-// app.use(bodyParser());
+var express    = require('express'),    // call express
+    app        = express(),         // define our app using express
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    session      = require('express-session'),
+    allowCrossDomain = require('./utils/cors-middleware'),
+    errorMiddleware = require('./utils/error-middleware'),
+    dynamicRoute = require('./dynamic-route');
 
 var port = process.env.PORT || 3333;    // set our port
 
@@ -19,33 +18,44 @@ var port = process.env.PORT || 3333;    // set our port
 // =============================================================================
 var router = express.Router();        // get an instance of the express Router
 
-//CORS middleware
-var allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-
-    next();
-};
-
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
   res.json({message: 'hooray! welcome to our api!'}); 
 });
 
+//SETUP MIDDLEWARE
+app.use(allowCrossDomain); // use CORS middleware
+app.use(bodyParser()); // use body parser
+
+// use session
+app.use(cookieParser());
+app.use(session({ secret: 'mychoice rocks', cookie: { maxAge: 60000 } }));
+
+
+// REGISTER OUR ROUTES
+var routes = [
+  { model: 'quiz', resource: 'quizzes' },
+  { model: 'tag', resource: 'tags' },
+  { model: 'user', resource: 'users', customValidation: true },
+  { model: 'section', resource: 'sections' },
+  { model: 'question', resource: 'questions' },
+  { model: 'choice', resource: 'choices' },
+  { model: 'answeredQuiz', resource: 'answeredQuizzes' },
+  { model: 'answeredSection', resource: 'answeredSections' },
+  { model: 'quiz_session', resource: 'quiz_sessions' },
+  { model: 'answeredQuestion', resource: 'answeredQuestions' }
+];
+//routes = ['answeredQuizzes', 'answeredSections', 'quiz_sessions', 'quizzes','sections', 'tags', 'users',  'answeredQuestions', 'choices', 'questions' ];
+
 // setup all routes using the dynamicRoute template
-routes = ['answeredQuizzes', 'answeredSections', 'quiz_sessions', 'quizzes','sections', 'tags', 'users',  'answeredQuestions', 'choices', 'questions' ];
 routes.forEach(function(route) { dynamicRoute(route, router); });
 
-// use CORS middleware
-app.use(allowCrossDomain);
+//error middleware
+router.use(errorMiddleware); // catch errors
 
-// use body parser
-app.use(bodyParser());
-
-// REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
+
 
 
 // START THE SERVER
