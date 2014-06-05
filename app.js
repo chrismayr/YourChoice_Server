@@ -44,11 +44,59 @@ var routes = [
   { model: 'answeredSection', resource: 'answeredSections' },
   { model: 'quiz_session', resource: 'quiz_sessions' },
   { model: 'answeredQuestion', resource: 'answeredQuestions' }
+  { model: 'login', resource: 'users' }
 ];
 //routes = ['answeredQuizzes', 'answeredSections', 'quiz_sessions', 'quizzes','sections', 'tags', 'users',  'answeredQuestions', 'choices', 'questions' ];
 
 // setup all routes using the dynamicRoute template
 routes.forEach(function(route) { dynamicRoute(route, router); });
+
+router.post('/logout', function(req, res) {
+	  // TODO destroy session
+		req.session.destroy();
+	  console.log('destroyed session');
+	  res.json({ status: "logged out"});
+	});
+
+	router.post('/login', function(req, res) {
+	  // TODO init session
+		  var user = req.params.user;
+		    var collection = eval("db.users");
+			collection.findOne({ username: user.username }, function (err, doc) {
+				if(doc!=null){
+					if(doc.username == user.username && doc.password == user.username){
+						console.log('init session');
+						req.session.user = user.username;
+						res.json({
+							user:{
+								_id: user._id,
+								username: user.username,
+								firstname: user.firstname,
+								lastname: user.lastname,
+								password: user.password
+							}
+						});
+					}else
+						{
+						res.status(400);
+						res.json( {status: "No User or not matching password!"});
+						}
+				}else {
+		      		res.status(400);
+		      		res.json( { status: "No document found with this id!" } );
+		   		 }
+			});
+	  /*console.log('init session');
+	  res.json({
+	    user: {
+	      _id: "1",
+	      username: "manuel_mitasch",
+	      firstname: "Manuel",
+	      lastname: "Mitasch",
+	      password: "test"
+	    }
+	  });*/
+	});
 
 //error middleware
 router.use(errorMiddleware); // catch errors
