@@ -16,10 +16,10 @@ module.exports = function(name, router) {
     if (curResource === resourceName) {
       if (method === 'POST' || method === 'PUT') {
         if (body[modelName] == undefined ||
-            body[modelName].userName == undefined ||
+            body[modelName].username == undefined ||
             body[modelName].email == undefined ||
             body[modelName].password == undefined) {
-          throw new BadRequest('You must specify userName, email, password.');
+          throw new BadRequest('You must specify username, email, password.');
         }
       }
     }

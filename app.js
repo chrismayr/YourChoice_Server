@@ -12,6 +12,7 @@ var express    = require('express'),    // call express
     errorMiddleware = require('./utils/error-middleware'),
     dynamicRoute = require('./dynamic-route');
 
+
 var port = process.env.PORT || 3333;    // set our port
 
 // ROUTES FOR OUR API
@@ -42,11 +43,10 @@ var routes = [
   { model: 'choice', resource: 'choices', customValidation: true },
   { model: 'answeredQuiz', resource: 'answeredQuizzes' },
   { model: 'answeredSection', resource: 'answeredSections' },
-  { model: 'quiz_session', resource: 'quiz_sessions' },
-  { model: 'answeredQuestion', resource: 'answeredQuestions' }
+  { model: 'quizSession', resource: 'quizSessions' },
+  { model: 'answeredQuestion', resource: 'answeredQuestions' },
   { model: 'login', resource: 'users' }
 ];
-//routes = ['answeredQuizzes', 'answeredSections', 'quiz_sessions', 'quizzes','sections', 'tags', 'users',  'answeredQuestions', 'choices', 'questions' ];
 
 // setup all routes using the dynamicRoute template
 routes.forEach(function(route) { dynamicRoute(route, router); });
@@ -100,6 +100,7 @@ router.post('/logout', function(req, res) {
 
 //error middleware
 router.use(errorMiddleware); // catch errors
+
 
 // all of our routes will be prefixed with /api
 app.use('/api', router);
