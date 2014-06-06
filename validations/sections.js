@@ -14,14 +14,28 @@ module.exports = function(name, router) {
         curResource = req.url.split('/')[1];
 
     if (curResource === resourceName) {
-      if (method === 'POST' || method === 'PUT') {
+      if (method === 'POST') {
         if (body[modelName] == undefined ||
             body[modelName].name == undefined ||
             body[modelName].questions == undefined ||
-            body[modelName].questions[0] == undefined) {
+            body[modelName].questions[0] == undefined ||
+            body[modelName].owner == undefined) {
           throw new BadRequest('You must specify name, questions.');
         }
-      }
+      }else if (method === 'PUT') {
+          if (body[modelName] == undefined ||
+                  body[modelName].name == undefined ||
+                  body[modelName].tags == undefined ||
+                  body[modelName].tags[0] == undefined ||
+                  body[modelName].sections == undefined ||
+                  body[modelName].sections[0] == undefined||
+                  body[modelName].owner == undefined) {
+                     throw new BadRequest('You must specify name, tags, sections, owner.');
+                  }
+            	if (req.session.username != body[modelName].owner){
+            		throw new Forbidden('You must be the owner if you want to modify this section.');
+            	}
+             }
     }
 
     next();

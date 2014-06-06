@@ -30,8 +30,32 @@ function BadRequest(msg) {
 }
 BadRequest.prototype.__proto__ = Error.prototype;
 
+function MethodNotAllowed(msg) {
+    this.name = 'MethodNotAllowed';
+    this.message = msg;
+    this.toJson = function() {
+      return JSON.stringify(this);
+    };
+    Error.call(this, msg);
+    Error.captureStackTrace(this, arguments.callee);
+}
+MethodNotAllowed.prototype.__proto__ = Error.prototype;
+
+function Forbidden(msg) {
+    this.name = 'Forbidden';
+    this.message = msg;
+    this.toJson = function() {
+      return JSON.stringify(this);
+    };
+    Error.call(this, msg);
+    Error.captureStackTrace(this, arguments.callee);
+}
+Forbidden.prototype.__proto__ = Error.prototype;
+
 module.exports = {
   notfound: NotFound,
   unauthorized: Unauthorized,
-  badrequest: BadRequest
+  badrequest: BadRequest,
+  methodnotallowed: MethodNotAllowed,
+  forbidden: Forbidden
 }
