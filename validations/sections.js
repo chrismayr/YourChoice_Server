@@ -21,6 +21,10 @@ module.exports = function(name, router) {
             body[modelName].questions[0] == undefined ||
             body[modelName].owner == undefined) {
           throw new BadRequest('You must specify name, questions.');
+            }
+            if (req.session.username != body[modelName].owner){
+            		throw new Forbidden('You must be the owner if you want to modify this section.');
+            }
         }
       }else if (method === 'PUT') {
           if (body[modelName] == undefined ||
@@ -35,7 +39,15 @@ module.exports = function(name, router) {
             	if (req.session.username != body[modelName].owner){
             		throw new Forbidden('You must be the owner if you want to modify this section.');
             	}
+             }else{
+                 if(method === 'DELETE')
+                 {
+                     if (req.session.username != body[modelName].owner){
+            	    	throw new Forbidden('You must be the owner if you want to modify this section.');
+            	     }
+                 }
              }
+             
     }
 
     next();
