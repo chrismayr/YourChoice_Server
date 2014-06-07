@@ -14,13 +14,32 @@ module.exports = function(name, router) {
         curResource = req.url.split('/')[1];
 
     if (curResource === resourceName) {
-      if (method === 'POST' || method === 'PUT') {
+      if (method === 'POST') {
         if (body[modelName] == undefined ||
             body[modelName].username == undefined ||
             body[modelName].email == undefined ||
             body[modelName].password == undefined) {
           throw new BadRequest('You must specify username, email, password.');
         }
+      }else{
+          if(method === 'PUT'){
+              if (body[modelName] == undefined ||
+                body[modelName].username == undefined ||
+                body[modelName].email == undefined ||
+                body[modelName].password == undefined) {
+                throw new BadRequest('You must specify username, email, password.');
+            }
+            if (req.session.username != body[modelName].username){
+                throw new Forbidden('You must be the owner if you want to modify this quiz.');
+            }
+          }else{
+              if(method === 'DELETE'){
+                  if (req.session.username != body[modelName].owner){
+                    throw new Forbidden('You must be the owner if you want to modify this quiz.');
+                  }
+              }
+          }
+          
       }
     }
 
