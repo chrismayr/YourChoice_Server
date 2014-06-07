@@ -44,8 +44,8 @@ var routes = [
   { model: 'answeredQuiz', resource: 'answeredQuizzes' },
   { model: 'answeredSection', resource: 'answeredSections' },
   { model: 'quizSession', resource: 'quizSessions' },
-  { model: 'answeredQuestion', resource: 'answeredQuestions' },
-  { model: 'login', resource: 'users' }
+  { model: 'answeredQuestion', resource: 'answeredQuestions' }//,
+  //{ model: 'login', resource: 'users' }
 ];
 
 // setup all routes using the dynamicRoute template
@@ -61,25 +61,26 @@ router.post('/logout', function(req, res) {
 	router.post('/login', function(req, res) {
 	  // TODO init session
 		  var user = req.params.user;
-		    var collection = eval("db.users");
+		    var collection = "db.users";
 			collection.findOne({ username: user.username }, function (err, doc) {
 				if(doc!=null){
-					if(doc.username == user.username && doc.password == user.username){
+					if(ddoc.password == user.password){
 						console.log('init session');
 						req.session.user = user.username;
-						res.json({
+						res.status(200);
+						/*res.json({200
 							user:{
 								_id: user._id,
 								username: user.username,
 								firstname: user.firstname,
 								lastname: user.lastname,
-								password: user.password
+								password: user.password*/
 							}
 						});
 					}else
 						{
 						res.status(400);
-						res.json( {status: "No User or not matching password!"});
+						//res.json( {status: "No User or not matching password!"});
 						}
 				}else {
 		      		res.status(400);
