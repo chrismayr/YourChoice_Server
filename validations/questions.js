@@ -14,7 +14,7 @@ module.exports = function(name, router) {
         curResource = req.url.split('/')[1];
 
     if (curResource === resourceName) {
-      if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+      if (method === 'POST') {
           
         if (body[modelName] == undefined ||
             //body[modelName].type == undefined ||
