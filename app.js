@@ -67,6 +67,7 @@ router.post('/logout', function(req, res) {
 					if(ddoc.password == user.password){
 						console.log('init session');
 						req.session.user = user.username;
+						req.session.userId = user._Id
 						res.status(200);
 						/*res.json({200
 							user:{
