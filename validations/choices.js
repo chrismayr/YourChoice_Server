@@ -13,14 +13,52 @@ module.exports = function(name, router) {
         method = req.method,
         curResource = req.url.split('/')[1];
 
-    if (curResource === resourceName) {
-      if (method === 'POST' || method === 'PUT') {
+    if (curResource === resourceName) 
+    {
+      if (method === 'POST' || method === 'PUT') 
+      {
         if (body[modelName] == undefined ||
             body[modelName].isSolution == undefined ||
-            (body[modelName].text == undefined && body[modelName].imageUrl == undefined)) {
-          throw new BadRequest('You must specify text or imageUrl and if it is the solution.');
+            (body[modelName].text == undefined && body[modelName].imageUrl == undefined)) 
+            {
+                throw new BadRequest('You must specify text or imageUrl and if it is the solution.');
+            }
+      }else
+      {
+          if(method === 'PUT')
+          {
+              if (req.session.username != body[modelName].owner){
+                throw new Forbidden('You must be the owner if you want to modify this quiz.');
+            }
+            else
+            {
+                 if (body[modelName] == undefined ||
+                    body[modelName].isSolution == undefined ||
+                    (body[modelName].text == undefined && body[modelName].imageUrl == undefined)) 
+                    {
+                        throw new BadRequest('You must specify text or imageUrl and if it is the solution.');
+                    }
+                }   
+          }else
+          {
+              if(method === 'DELETE')
+              {
+                if (req.session.username != body[modelName].owner)
+                {
+                throw new Forbidden('You must be the owner if you want to modify this quiz.');
+                }
+                else
+                {
+                    if (body[modelName] == undefined ||
+                        body[modelName].isSolution == undefined ||
+                        (body[modelName].text == undefined && body[modelName].imageUrl == undefined)) 
+                        {
+                            throw new BadRequest('You must specify text or imageUrl and if it is the solution.');
+                        }
+                }
+            }
+           }
         }
-      }
     }
 
     next();
