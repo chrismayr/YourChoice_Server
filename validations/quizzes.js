@@ -38,6 +38,12 @@ module.exports = function(name, router) {
       	if (req.session.username != body[modelName].owner){
       		throw new Forbidden('You must be the owner if you want to modify this quiz.');
       	}
+       }else{
+           if(method === 'DELETE'){
+               if (req.session.username != body[modelName].owner){
+      		        throw new Forbidden('You must be the owner if you want to modify this quiz.');
+      	       }
+           }
        }
     }
     next();
