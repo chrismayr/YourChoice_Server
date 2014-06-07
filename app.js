@@ -53,7 +53,7 @@ routes.forEach(function(route) { dynamicRoute(route, router); });
 
 router.post('/logout', function(req, res) {
 	  // TODO destroy session
-		req.session.destroy();
+		req.session.destroy(funcition(err));
 	  console.log('destroyed session');
 	  res.json({ status: "logged out"});
 	});
