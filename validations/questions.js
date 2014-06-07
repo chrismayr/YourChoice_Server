@@ -14,16 +14,39 @@ module.exports = function(name, router) {
         curResource = req.url.split('/')[1];
 
     if (curResource === resourceName) {
-      if (method === 'POST' || method === 'PUT') {
+      if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+          
         if (body[modelName] == undefined ||
-            body[modelName].type == undefined ||
-            (body[modelName].text == undefined && body[modelName].dropText == undefined && body[modelName].imageUrl == undefined) ||
-            body[modelName].points == undefined ||
+            //body[modelName].type == undefined ||
+            //(body[modelName].text == undefined && body[modelName].dropText == undefined && body[modelName].imageUrl == undefined) ||
+            //body[modelName].points == undefined ||
             body[modelName].choices == undefined ||
             body[modelName].choices[0] == undefined) {
           throw new BadRequest('You must specify type, points, choices, and text/droptext/imageUrl.');
         }
-      }
+      }else{
+          if(method === ' PUT'){
+              if (req.session.username != body[modelName].owner){
+                throw new Forbidden('You must be the owner if you want to modify this quiz.');
+              }else{
+                    if (body[modelName] == undefined ||
+                    //body[modelName].type == undefined ||
+                    //(body[modelName].text == undefined && body[modelName].dropText == undefined && body[modelName].imageUrl == undefined) ||
+                    //body[modelName].points == undefined ||
+                    body[modelName].choices == undefined ||
+                    body[modelName].choices[0] == undefined) {
+                    throw new BadRequest('You must specify type, points, choices, and text/droptext/imageUrl.');
+                    }
+                }
+          }else{
+              if(method === ' DELETE'){
+                 if (req.session.username != body[modelName].owner){
+                    throw new Forbidden('You must be the owner if you want to modify this quiz.');
+                 }        
+               }
+          
+        }
+    }
     }
 
     next();
