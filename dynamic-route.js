@@ -58,6 +58,36 @@ module.exports = function(route, router) {
    		 }
 	});
   });
+  
+  router.get('/answeredQuiz', function(req, res) {
+  // todo all the things
+  var id = req.session.id;
+  var collection = eval("db." + resourceName);
+	collection.find({ owner: id }, function (err, doc) {
+		if(doc!=null){
+			res.json( buildResponse(resourceName, [doc]) );
+		}else {
+      		res.status(400);
+      		res.json( { status: "No document found with this userID!" } );
+   		 }
+	});
+  
+  });
+  
+  router.get('/answeredQuiz/:id', function(req, res) {
+  // todo all the things
+  var id = req.parms.id;
+  var collection = eval("db." + resourceName);
+	collection.find({ _id: id }, function (err, doc) {
+		if(doc!=null){
+			res.json( buildResponse(resourceName, [doc]) );
+		}else {
+      		res.status(400);
+      		res.json( { status: "No document found with this QuizID!" } );
+   		 }
+	});
+  
+  });
 
 // DELETE single
   router.delete('/' + resourceName + '/:id', function(req, res) {
