@@ -44,7 +44,9 @@ var routes = [
   { model: 'answeredQuiz', resource: 'answeredQuizzes' },
   { model: 'answeredSection', resource: 'answeredSections' },
   { model: 'quizSession', resource: 'quizSessions' },
-  { model: 'answeredQuestion', resource: 'answeredQuestions' }//,
+  { model: 'answeredQuestion', resource: 'answeredQuestions' },
+  { model: 'answeredQuiz', resource: 'answeredQuizzes'}
+  //,
   //{ model: 'login', resource: 'users' }
 ];
 
