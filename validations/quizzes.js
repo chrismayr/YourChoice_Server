@@ -38,14 +38,27 @@ module.exports = function(name, router) {
       	if (req.session.username != body[modelName].owner){
       		throw new Forbidden('You must be the owner if you want to modify this quiz.');
       	}
-       }else{
-           if(method === 'DELETE'){
-               if (req.session.username != body[modelName].owner){
-      		        throw new Forbidden('You must be the owner if you want to modify this quiz.');
-      	       }
+       }else if(method === 'DELETE'){
+    	   var id = req.url.split('/')[2];
+        	   global.db.quizzes.findOne({ _id: id }, function (err, doc) {
+       			if(doc!=null){
+       				if (req.session.username != doc.owner){
+       					console.log("doc.owner: "+ doc.owner);
+       					throw new Forbidden('You must be the owner if you want to delete this quiz.');
+       		         }else{
+       		        	 console.log("not found");
+       		         }
+       			}
+       			
+       			
+       			});
+        	   
+        	   
+//               if (req.session.username != body[modelName].owner){
+//      		        throw new Forbidden('You must be the owner if you want to modify this quiz.');
+//      	       }
            }
-       }
-    }
+    }    
     next();
     
   };
