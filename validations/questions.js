@@ -2,7 +2,8 @@ var authorizationMiddleware = require('../utils/authorization-middleware'),
     errors = require('../utils/errors'),
     Unauthorized = errors.unauthorized,
     NotFound = errors.notfound,
-    BadRequest = errors.badrequest;
+    BadRequest = errors.badrequest,
+    Forbidden= errors.forbidden;
 
 module.exports = function(name, router) {
   var modelName = name.model,
@@ -24,29 +25,26 @@ module.exports = function(name, router) {
             body[modelName].choices[0] == undefined) {
           throw new BadRequest('You must specify type, points, choices, and text/droptext/imageUrl.');
         }
-      }else{
-          if(method === ' PUT'){
-              if (req.session.username != body[modelName].owner){
-                throw new Forbidden('You must be the owner if you want to modify this quiz.');
+      }else if(method === 'PUT'){
+              if (req.session.username != body[resourceName].owner){
+                throw new Forbidden('You must be the owner if you want to modify this question.');
               }else{
-                    if (body[modelName] == undefined ||
+                    if (body[resourceName] == undefined ||
                     //body[modelName].type == undefined ||
                     //(body[modelName].text == undefined && body[modelName].dropText == undefined && body[modelName].imageUrl == undefined) ||
                     //body[modelName].points == undefined ||
-                    body[modelName].choices == undefined ||
-                    body[modelName].choices[0] == undefined) {
+                    body[resourceName].choices == undefined ||
+                    body[resourceName].choices[0] == undefined) {
                     throw new BadRequest('You must specify type, points, choices, and text/droptext/imageUrl.');
                     }
                 }
-          }else{
-              if(method === ' DELETE'){
+          }else if(method === 'DELETE'){
                  if (req.session.username != body[modelName].owner){
-                    throw new Forbidden('You must be the owner if you want to modify this quiz.');
+                    throw new Forbidden('You must be the owner if you want to modify this question.');
                  }        
                }
           
-        }
-    }
+        
     }
 
     next();
