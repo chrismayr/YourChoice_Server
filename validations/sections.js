@@ -25,7 +25,6 @@ module.exports = function(name, router) {
             if (req.session.username != body[modelName].owner){
             		throw new Forbidden('You must be the owner if you want to modify this section.');
             }
-        }
       }else if (method === 'PUT') {
           if (body[modelName] == undefined ||
                   body[modelName].name == undefined ||
@@ -39,14 +38,13 @@ module.exports = function(name, router) {
             	if (req.session.username != body[modelName].owner){
             		throw new Forbidden('You must be the owner if you want to modify this section.');
             	}
-             }else{
-                 if(method === 'DELETE')
+             }else if(method === 'DELETE')
                  {
                      if (req.session.username != body[modelName].owner){
             	    	throw new Forbidden('You must be the owner if you want to modify this section.');
             	     }
                  }
-             }
+             
              
     }
 
@@ -55,4 +53,4 @@ module.exports = function(name, router) {
 
   router.use(authorizationMiddleware(name)); // check if user if authorized
   router.use(validationMiddleware); // validate input + throw errors
-};
+}

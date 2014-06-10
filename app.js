@@ -78,8 +78,8 @@ router.post('/logout', function(req, res) {
 								firstname: user.firstname,
 								lastname: user.lastname,
 								password: user.password*/
-							}
-						});
+//							}
+//						});
 					}else
 						{
 						res.status(400);
