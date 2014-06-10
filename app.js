@@ -37,14 +37,13 @@ global.db.questions = new Datastore({ filename: './data/questions.db', autoload:
 global.db.choices = new Datastore({ filename: './data/choices.db', autoload: true });
 //=============================================================================
 
-
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();        // get an instance of the express Router
 
 // test route to make sure everything is working (accessed at GET http://localhost:8080/api)
 router.get('/', function(req, res) {
-  res.json({message: 'hooray! welcome to our api!'}); 
+  res.json({message: 'hooray! welcome to our api!'});
 });
 
 //SETUP MIDDLEWARE
@@ -53,7 +52,7 @@ app.use(bodyParser()); // use body parser
 
 // use session
 app.use(cookieParser());
-app.use(session({ secret: 'mychoice rocks', cookie: { maxAge: 60000 } }));
+app.use(session({ secret: 'mychoice rocks', cookie: { maxAge: null } }));
 
 
 // REGISTER OUR ROUTES
@@ -79,53 +78,37 @@ routes.forEach(function(route) { dynamicRoute(route, router); });
 router.post('/answeredQuizzes/:id', startQuizRoute);
 
 router.post('/logout', function(req, res) {
-	  // TODO destroy session
-		req.session.destroy(funcition(err));
-	  console.log('destroyed session');
-	  res.json({ status: "logged out"});
-	});
+    // TODO destroy session
+    req.session.destroy(funcition(err));
+    console.log('destroyed session');
+    res.json({ status: "logged out"});
+  });
 
-	router.post('/login', function(req, res) {
-	  // TODO init session
-		Logger.log('Login', req);
-		  var user = req.params.user;
-		    global.db.users.findOne({ username: user.username }, function (err, doc) {
-				if(doc!=null){
-					if(ddoc.password == user.password){
-						console.log('init session');
-						req.session.user = user.username;
-						req.session.userId = user._Id
-						res.status(200);
-						/*res.json({200
-							user:{
-								_id: user._id,
-								username: user.username,
-								firstname: user.firstname,
-								lastname: user.lastname,
-								password: user.password*/
-//							}
-//						});
-					}else
-						{
-						res.status(400);
-						//res.json( {status: "No User or not matching password!"});
-						}
-				}else {
-		      		res.status(400);
-		      		res.json( { status: "No document found with this id!" } );
-		   		 }
-			});
-	  /*console.log('init session');
-	  res.json({
-	    user: {
-	      _id: "1",
-	      username: "manuel_mitasch",
-	      firstname: "Manuel",
-	      lastname: "Mitasch",
-	      password: "test"
-	    }
-	  });*/
-	});
+router.post('/login', function(req, res) {
+  // TODO init session
+  Logger.log('Login', req);
+
+  var username = req.body.username,
+      password = req.body.password;
+
+  global.db.users.findOne({ username: username }, function (err, doc) {
+    if (doc != null) {
+      if (doc.password == password) {
+        console.log('init session');
+        req.session.user = username;
+        req.session.userId = doc._id;
+        req.session.save(function (err) {
+          debugger;
+        });
+        res.json(200, { user: doc });
+      } else {
+        // throw new BadRequest('No User or not matching password!');
+      }
+    } else {
+      // throw new BadRequest('No User or not matching password!');
+    }
+  });
+});
 
 //error middleware
 router.use(errorMiddleware); // catch errors

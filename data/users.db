@@ -1,2 +1,2 @@
-{"password":"password","username":"Jane Doe","email":"jane@doe.com","_id":"88Sf9OYkTfib9uSi"}
-{"password":"password","username":"John Doe","email":"john@doe.com","_id":"b6ePDZn1Y4gRR106"}
+{"password":"password","username":"jane_doe","email":"jane@doe.com","_id":"88Sf9OYkTfib9uSi","firstname":"Jane","lastname":"Doe"}
+{"password":"password","username":"john_doe","email":"john@doe.com","_id":"b6ePDZn1Y4gRR106","firstname":"John","lastname":"Doe"}

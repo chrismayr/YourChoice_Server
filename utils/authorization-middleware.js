@@ -13,7 +13,7 @@ module.exports = function (route) {
       if (username == undefined) {
         console.log('Authorization middleware: NOT authorized');
         Logger.warn('Authorization middleware: NOT authorized', req);
-        delete req.session.username;
+        // delete req.session.username;
         // throw new Unauthorized;  // TODO uncomment once session is used
       } else {
         console.log('Authorization middlware: Authorized');
