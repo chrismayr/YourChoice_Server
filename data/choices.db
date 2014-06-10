@@ -34,6 +34,7 @@
 {"text":"echo 'Hello World';","imageUrl":null,"isSolution":false,"_id":"X1aVNM5MBeUdFZav"}
 {"text":"('Hello World');","imageUrl":null,"isSolution":false,"_id":"XqfAlgnHVRJHWiGA"}
 {"text":"get('http')","imageUrl":null,"isSolution":false,"_id":"XtkfS5ehkkntBvXa"}
+{"text":"testquiz55","isSolution":"mail","owner":"bla","_id":"dpCHjcrZN1PFvyyA"}
 {"text":"based on model-view-controller (MVC) software architectural pattern","imageUrl":null,"isSolution":true,"_id":"eF78egn51foMDYBW"}
 {"text":"AngularJS","imageUrl":null,"isSolution":false,"_id":"figlcyoqCQY6XQlm"}
 {"text":"<script>","imageUrl":null,"isSolution":true,"_id":"g1bnaaJWKLgRVNv2"}

@@ -1,5 +1,6 @@
 var errors = require('../utils/errors'),
-    Unauthorized = errors.unauthorized;
+    Unauthorized = errors.unauthorized,
+    Logger = require('../utils/logger');
 
 module.exports = function (route) {
   var resourceName = route.resource;
@@ -11,6 +12,7 @@ module.exports = function (route) {
     if (curResource === resourceName) {
       if (username == undefined) {
         console.log('Authorization middleware: NOT authorized');
+        Logger.warn('Authorization middleware: NOT authorized', req);
         delete req.session.username;
         // throw new Unauthorized;  // TODO uncomment once session is used
       } else {

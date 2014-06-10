@@ -10,6 +10,7 @@
 	    "nedb": "^0.10.5",
 	    "body-parser": "^1.0.2",
 	    "cookie-parser": "^1.1.0",
-	    "express-session": "^1.2.1"
+	    "express-session": "^1.2.1",
+	    "cli-color": "^0.3.2"
 	  }
 }

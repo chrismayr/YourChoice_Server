@@ -26,12 +26,12 @@ module.exports = function(name, router) {
             }
       }else if(method === 'PUT')
           {
-              if (req.session.username != body[resourceName].owner){
+              if (req.session.username != body[modelName].owner){
                 throw new Forbidden('You must be the owner if you want to modify this choice.');
               }
-            else if (body[resourceName] == undefined ||
-                    body[resourceName].isSolution == undefined ||
-                    (body[resourceName].text == undefined && body[resourceName].imageUrl == undefined)) 
+            else if (body[modelName] == undefined ||
+                    body[modelName].isSolution == undefined ||
+                    (body[modelName].text == undefined && body[modelName].imageUrl == undefined)) 
                     {
                         throw new BadRequest('You must specify text or imageUrl and if it is the solution.');
                     }   
