@@ -26,16 +26,16 @@ module.exports = function(name, router) {
           throw new BadRequest('You must specify name, tags, sections, owner.');
         }
       }else if (method === 'PUT') {
-        if (body[resourceName] == undefined ||
-            body[resourceName].name == undefined ||
-            body[resourceName].tags == undefined ||
-            body[resourceName].tags[0] == undefined ||
-            body[resourceName].sections == undefined ||
-            body[resourceName].sections[0] == undefined||
-            body[resourceName].owner == undefined) {
+        if (body[modelName] == undefined ||
+            body[modelName].name == undefined ||
+            body[modelName].tags == undefined ||
+            body[modelName].tags[0] == undefined ||
+            body[modelName].sections == undefined ||
+            body[modelName].sections[0] == undefined||
+            body[modelName].owner == undefined) {
                throw new BadRequest('You must specify name, tags, sections, owner.');
             }
-      	if (req.session.username != body[resourceName].owner){
+      	if (req.session.username != body[modelName].owner){
       		throw new Forbidden('You must be the owner if you want to modify this quiz.');
       	}
        }else{

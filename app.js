@@ -10,10 +10,33 @@ var express    = require('express'),    // call express
     session      = require('express-session'),
     allowCrossDomain = require('./utils/cors-middleware'),
     errorMiddleware = require('./utils/error-middleware'),
-    dynamicRoute = require('./dynamic-route');
+    dynamicRoute = require('./dynamic-route')
+    Logger = require('./utils/logger'),
+    startQuizRoute = require('./routes/start-quiz-route');
+
+global.irgendeintext="hallo!";
 
 
 var port = process.env.PORT || 3333;    // set our port
+
+//DATABASE OBJECTS
+//============================================================================
+var Datastore = require('nedb');
+global.db = {};
+
+global.db.quizzes = new Datastore({ filename: './data/quizzes.db', autoload: true });
+global.db.sections = new Datastore({ filename: './data/sections.db', autoload: true });
+global.db.tags = new Datastore({ filename: './data/tags.db', autoload: true });
+global.db.users = new Datastore({ filename: './data/users.db', autoload: true });
+global.db.answeredQuizzes = new Datastore({ filename: './data/answeredQuizzes.db', autoload: true });
+global.db.answeredSections = new Datastore({ filename: './data/answeredSections.db', autoload: true });
+global.db.quizSessions = new Datastore({ filename: './data/quizSessions.db', autoload: true });
+global.db.answeredQuestions = new Datastore({ filename: './data/answeredQuestions.db', autoload: true });
+global.db.answeredChoices = new Datastore({ filename: './data/answeredChoices.db', autoload: true });
+global.db.questions = new Datastore({ filename: './data/questions.db', autoload: true });
+global.db.choices = new Datastore({ filename: './data/choices.db', autoload: true });
+//=============================================================================
+
 
 // ROUTES FOR OUR API
 // =============================================================================
@@ -53,6 +76,8 @@ var routes = [
 // setup all routes using the dynamicRoute template
 routes.forEach(function(route) { dynamicRoute(route, router); });
 
+router.post('/answeredQuizzes/:id', startQuizRoute);
+
 router.post('/logout', function(req, res) {
 	  // TODO destroy session
 		req.session.destroy(funcition(err));
@@ -62,9 +87,9 @@ router.post('/logout', function(req, res) {
 
 	router.post('/login', function(req, res) {
 	  // TODO init session
+		Logger.log('Login', req);
 		  var user = req.params.user;
-		    var collection = "db.users";
-			collection.findOne({ username: user.username }, function (err, doc) {
+		    global.db.users.findOne({ username: user.username }, function (err, doc) {
 				if(doc!=null){
 					if(ddoc.password == user.password){
 						console.log('init session');

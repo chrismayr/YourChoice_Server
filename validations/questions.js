@@ -26,15 +26,15 @@ module.exports = function(name, router) {
           throw new BadRequest('You must specify type, points, choices, and text/droptext/imageUrl.');
         }
       }else if(method === 'PUT'){
-              if (req.session.username != body[resourceName].owner){
+              if (req.session.username != body[modelName].owner){
                 throw new Forbidden('You must be the owner if you want to modify this question.');
               }else{
-                    if (body[resourceName] == undefined ||
+                    if (body[modelName] == undefined ||
                     //body[modelName].type == undefined ||
                     //(body[modelName].text == undefined && body[modelName].dropText == undefined && body[modelName].imageUrl == undefined) ||
                     //body[modelName].points == undefined ||
-                    body[resourceName].choices == undefined ||
-                    body[resourceName].choices[0] == undefined) {
+                    body[modelName].choices == undefined ||
+                    body[modelName].choices[0] == undefined) {
                     throw new BadRequest('You must specify type, points, choices, and text/droptext/imageUrl.');
                     }
                 }

@@ -23,13 +23,12 @@ module.exports = function(name, router) {
           throw new BadRequest('You must specify username, email, password.');
         }
       }else if(method === 'PUT'){
-           if (body[resourceName] == undefined ||
-                body[resourceName].username == undefined ||
-                body[resourceName].email == undefined ||
-                body[resourceName].password == undefined) {
-                throw new BadRequest('You must specify username, email, password.');
+           if (body[modelName] == undefined ||
+                body[modelName].username == undefined ||
+                body[modelName].password == undefined) {
+                throw new BadRequest('You must specify username and password.');
             }
-            if (req.session.username != body[resourceName].username){
+            if (req.session.username != body[modelName].username){
                 throw new Forbidden('You must be the owner if you want to modify this quiz.');
             }
           }else if(method === 'DELETE'){
