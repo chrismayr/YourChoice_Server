@@ -30,6 +30,7 @@ module.exports = function(name, router) {
         } else {
           if (req.session.username == undefined ||
               req.session.username != body[modelName].username) {
+            debugger;
               throw new Forbidden('You must be logged in as this user.');
           }
         }
@@ -44,6 +45,6 @@ module.exports = function(name, router) {
     next();
   };
 
-  // router.use(authorizationMiddleware(name)); // check if user if authorized
+  router.use(authorizationMiddleware(name)); // check if user if authorized
   router.use(validationMiddleware); // validate input + throw errors
 };

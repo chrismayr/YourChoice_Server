@@ -43,17 +43,17 @@ module.exports = function(route, router) {
     } else {
 		collection.find({}, function (err, docs) {
 			res.json( buildResponse(resourceName, docs) );
-		}); 	
-    } 
+		});
+    }
   });
-  
+
 // RETRIEVE single
   router.get('/' + resourceName + '/:id', function(req, res) {
 	Logger.log('Retrieve single', req);
     var id = req.params.id;
     var collection = eval("global.db." + resourceName);
 	collection.findOne({ _id: id }, function (err, doc) {
-		if(doc!=null){	
+		if(doc!=null){
 			res.json( buildResponse(resourceName, [doc]) );
 		}else {
       		res.status(400);
@@ -61,7 +61,7 @@ module.exports = function(route, router) {
    		 }
 	});
   });
-  
+
   router.get('/answeredQuiz', function(req, res) {
   // todo all the things
   var id = req.session.id;
@@ -74,9 +74,9 @@ module.exports = function(route, router) {
       		res.json( { status: "No document found with this userID!" } );
    		 }
 	});
-  
+
   });
-  
+
   router.get('/answeredQuiz/:id', function(req, res) {
   // todo all the things
   var id = req.parms.id;
@@ -89,7 +89,7 @@ module.exports = function(route, router) {
       		res.json( { status: "No document found with this QuizID!" } );
    		 }
 	});
-  
+
   });
 
 // DELETE single
@@ -120,27 +120,29 @@ module.exports = function(route, router) {
         res.json( buildResponse(modelName, newDocs) );
         res.status(201);
 	  });
-      
+
     } else {
     	Logger.error('Wrong data in body', req);
     	res.send(400);
     }
   });
-  
+
 // UPDATE single
   router.put('/' + resourceName + '/:id', function(req, res) {
-	Logger.log('Update single', req);
+	  Logger.log('Update single', req);
     var id = req.params.id,
         body = req.body;
-	if (body != undefined && body[modelName] != undefined) {
-   		var collection = eval("global.db." + resourceName);
-		var records = body[modelName];
-		records.forEach(function(record) {
-			collection.update( {"_id":id},record, {}, function (err, numReplaced) {	
-				res.json( buildResponse(modelName, [record]) );
-				res.status(201);
-			});
-		});  
+
+  	if (body != undefined && body[modelName] != undefined) {
+     	var collection = eval("global.db." + resourceName);
+  		var record = body[modelName];
+
+      record._id = id;
+
+  		collection.update( {"_id":id}, record, {}, function (err, numReplaced) {
+  			res.json( buildResponse(modelName, [record]) );
+  			res.status(201);
+  		});
     } else {
     	Logger.error('Wrong data in body', req);
     	res.send(400);

@@ -52,7 +52,11 @@ app.use(bodyParser()); // use body parser
 
 // use session
 app.use(cookieParser());
-app.use(session({ secret: 'mychoice rocks', cookie: { maxAge: null } }));
+app.use(session({
+    secret: 'keyboard cat'
+  , proxy: true // if you do SSL outside of node.,
+  , cookie: { path: '/', httpOnly: true, secure: false, maxAge: 9999999 }
+}));
 
 
 // REGISTER OUR ROUTES
@@ -79,7 +83,7 @@ router.post('/answeredQuizzes/:id', startQuizRoute);
 
 router.post('/logout', function(req, res) {
     // TODO destroy session
-    req.session.destroy(funcition(err));
+    req.session.destroy();
     console.log('destroyed session');
     res.json({ status: "logged out"});
   });
@@ -95,11 +99,9 @@ router.post('/login', function(req, res) {
     if (doc != null) {
       if (doc.password == password) {
         console.log('init session');
-        req.session.user = username;
+        req.session.username = username;
         req.session.userId = doc._id;
-        req.session.save(function (err) {
-          debugger;
-        });
+        req.session.save();
         res.json(200, { user: doc });
       } else {
         // throw new BadRequest('No User or not matching password!');
