@@ -2,7 +2,8 @@ var authorizationMiddleware = require('../utils/authorization-middleware'),
     errors = require('../utils/errors'),
     Unauthorized = errors.unauthorized,
     NotFound = errors.notfound,
-    BadRequest = errors.badrequest;
+    BadRequest = errors.badrequest,
+    Forbidden= errors.forbidden;
 
 module.exports = function(name, router) {
   var modelName = name.model,
@@ -26,16 +27,16 @@ module.exports = function(name, router) {
             		throw new Forbidden('You must be the owner if you want to modify this section.');
             }
       }else if (method === 'PUT') {
-          if (body[modelName] == undefined ||
-                  body[modelName].name == undefined ||
-                  body[modelName].tags == undefined ||
-                  body[modelName].tags[0] == undefined ||
-                  body[modelName].sections == undefined ||
-                  body[modelName].sections[0] == undefined||
-                  body[modelName].owner == undefined) {
+          if (body[resourceName] == undefined ||
+                  body[resourceName].name == undefined ||
+                  body[resourceName].tags == undefined ||
+                  body[resourceName].tags[0] == undefined ||
+                  body[resourceName].sections == undefined ||
+                  body[resourceName].sections[0] == undefined||
+                  body[resourceName].owner == undefined) {
                      throw new BadRequest('You must specify name, tags, sections, owner.');
                   }
-            	if (req.session.username != body[modelName].owner){
+            	if (req.session.username != body[resourceName].owner){
             		throw new Forbidden('You must be the owner if you want to modify this section.');
             	}
              }else if(method === 'DELETE')

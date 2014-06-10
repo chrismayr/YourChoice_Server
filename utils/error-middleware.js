@@ -11,7 +11,7 @@ module.exports = function(err, req, res, next) {
   } else if (err instanceof NotFound) {
     res.send(404, err.toJson());
   }else if (err instanceof MethodNotAllowed) {
-	res.header('Access-Control-Allow-Methods', 'GET,PUT');
+	res.header('Access-Control-Allow-Methods', 'GET');
 	res.send(405, { name: "MethodNotAllowed", message: err.message });
   }else if (err instanceof Forbidden) {
 	res.send(403, { name: "Forbidden", message: err.message });
