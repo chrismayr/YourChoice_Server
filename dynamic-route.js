@@ -2,21 +2,6 @@ var buildResponse = require('./utils/build-response'),
     authorizationMiddleware = require('./utils/authorization-middleware'),
     Logger = require('./utils/logger');
 
-//var db = {};
-//
-//db.quizzes = new Datastore({ filename: './data/quizzes.db', autoload: true });
-//db.sections = new Datastore({ filename: './data/sections.db', autoload: true });
-//db.tags = new Datastore({ filename: './data/tags.db', autoload: true });
-//db.users = new Datastore({ filename: './data/users.db', autoload: true });
-//db.answeredQuizzes = new Datastore({ filename: './data/answeredQuizzes.db', autoload: true });
-//db.answeredSections = new Datastore({ filename: './data/answeredSections.db', autoload: true });
-//db.quizSessions = new Datastore({ filename: './data/quizSessions.db', autoload: true });
-//db.answeredQuestions = new Datastore({ filename: './data/answeredQuestions.db', autoload: true });
-//db.answeredChoices = new Datastore({ filename: './data/answeredChoices.db', autoload: true });
-//db.questions = new Datastore({ filename: './data/questions.db', autoload: true });
-//db.choices = new Datastore({ filename: './data/choices.db', autoload: true });
-
-
 module.exports = function(route, router) {
 
   var modelName = route.model,
