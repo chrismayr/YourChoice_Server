@@ -6,6 +6,7 @@ module.exports = function(route, router) {
 
   var modelName = route.model,
       resourceName = route.resource;
+  
 
   // either use a custom validation middleware (that also needs to include the authorization middleware)
   // or at least use standard authorization middleware
@@ -32,6 +33,7 @@ module.exports = function(route, router) {
     }
   });
 
+
 // RETRIEVE single
   router.get('/' + resourceName + '/:id', function(req, res) {
 	Logger.log('Retrieve single', req);
@@ -39,43 +41,14 @@ module.exports = function(route, router) {
     var collection = eval("global.db." + resourceName);
 	collection.findOne({ _id: id }, function (err, doc) {
 		if(doc!=null){
-			res.json( buildResponse(resourceName, [doc]) );
+			res.json( buildResponse(resourceName, doc) );
 		}else {
       		res.status(400);
       		res.json( { status: "No document found with this id!" } );
    		 }
 	});
   });
-
-  router.get('/answeredQuiz', function(req, res) {
-  // todo all the things
-  var id = req.session.id;
-  var collection = eval("global.db." + resourceName);
-	collection.find({ owner: id }, function (err, doc) {
-		if(doc!=null){
-			res.json( buildResponse(resourceName, [doc]) );
-		}else {
-      		res.status(400);
-      		res.json( { status: "No document found with this userID!" } );
-   		 }
-	});
-
-  });
-
-  router.get('/answeredQuiz/:id', function(req, res) {
-  // todo all the things
-  var id = req.parms.id;
-  var collection = eval("global.db." + resourceName);
-	collection.find({ _id: id }, function (err, doc) {
-		if(doc!=null){
-			res.json( buildResponse(resourceName, [doc]) );
-		}else {
-      		res.status(400);
-      		res.json( { status: "No document found with this QuizID!" } );
-   		 }
-	});
-
-  });
+  
 
 // DELETE single
   router.delete('/' + resourceName + '/:id', function(req, res) {
@@ -94,7 +67,7 @@ module.exports = function(route, router) {
   });//end router.delete
 
 
-// CREATE
+// CREATE single
   router.post('/' + resourceName, function(req, res) {
 	Logger.log('Create single', req);
     var body = req.body;
@@ -133,4 +106,47 @@ module.exports = function(route, router) {
     	res.send(400);
     }
   });
+  
+////filter middleware
+  router.get('/users', function(req, res) {
+		Logger.log('Retrieve all users without password', req);	    
+			global.db.users.find({}, function (err, docs) {
+				docs.forEach(function(doc) {
+				    delete doc.password;
+				  });
+				res.json( buildResponse('users', docs) );
+			});
+  });
+  
+  router.get('/answeredQuizzes', function(req, res) {
+	  Logger.log('Retrieve own answeredquizzes', req);
+	  // todo all the things
+	  var id = req.session.id;
+		global.db.answeredQuizzes.find({ owner: req.session.username }, function (err, docs) {
+			if(docs!=null){
+				res.json( buildResponse('answeredQuizzes', docs) );
+			}else {
+	      		res.status(400);
+	      		res.json( { status: "No documents found with this owner!" } );
+	   		 }
+		});
+
+	  });
+
+
+  router.get('/answeredQuizzes/:id', function(req, res) {
+	Logger.log('Retrieve own answeredquiz', req);
+    var id = req.params.id;
+   global.db.answeredQuizzes.findOne({ $and: [{ _id: id }, { owner: req.session.username }] }, function (err, doc) {
+		if(doc!=null){
+			res.json( buildResponse('answeredQuiz', doc) );
+		}else {
+      		res.status(400);
+      		res.json( { status: "No document found with this id or you are not the owner!" } );
+   		 }
+	});
+  });
+  
+  
+
 };
