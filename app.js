@@ -14,10 +14,12 @@ var express    = require('express'),    // call express
     Logger = require('./utils/logger'),
     startQuizRoute = require('./routes/start-quiz-route');
 
-global.irgendeintext="hallo!";
-
-
 var port = process.env.PORT || 3333;    // set our port
+
+// to throw also all our custom errors when using nedb:
+process.on('uncaughtException', function(err){
+	throw err;
+});
 
 //DATABASE OBJECTS
 //============================================================================
@@ -63,7 +65,7 @@ app.use(session({
 var routes = [
   { model: 'quiz', resource: 'quizzes', customValidation: true },
   { model: 'tag', resource: 'tags', customValidation: true },
-  { model: 'user', resource: 'users', customValidation: true },
+  { model: 'user', resource: 'users', customValidation: true, customFiltering: true },
   { model: 'section', resource: 'sections', customValidation: true },
   { model: 'question', resource: 'questions', customValidation: true },
   { model: 'choice', resource: 'choices', customValidation: true },
@@ -111,6 +113,7 @@ router.post('/login', function(req, res) {
     }
   });
 });
+
 
 //error middleware
 router.use(errorMiddleware); // catch errors

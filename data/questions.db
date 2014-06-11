@@ -10,6 +10,7 @@
 {"type":"textquestion","text":"What is the correct syntax for referring to an external script called 'xxx.js'?","points":4,"choices":["oevGcfxBGN1N58pv","h85xfgZ7joROHjgy","HBLpCTbXrlXBUKLW"],"_id":"aSXvt6ebVUzIr83p"}
 {"type":"dndquestion","text":"Select protocols used to serve a web page.","points":2,"dropText":"Web protocols","choices":["0IKK7Qd1amW7B3Ta","liJDwcc3eV0QIMky","iSCtEsHvlNl28H1j","0H5SgoRdaXXcbyjt"],"_id":"cNuxITdTYBYpOJzb"}
 {"type":"textquestion","text":"How do you write \"Hello World\" in an alert box?","points":4,"choices":["nnSg7lzVX9rXkuHR","mUqE4EAhQAQw27Ph","1Dr1YgjzVBBpeFAo","k9e3graUPGK49Kgi"],"_id":"gLG9ZGcmufSp2Ko6"}
+{"text":"test","type":"test","choices":[1],"sections":[1],"_id":"hbCmPGs5sJJqAzb4"}
 {"type":"textquestion","text":"text5 ","points":3,"choices":["KCArWG37LAPw8lkm","rzOZhOHZrFUe8Nid","2BNRoh56Fb7jP4Tt","zlRfOxCUrmNGOkNS","ResBGgDJuaKtpZnG","Dc2nroTtovk2fLAq"],"_id":"klL3l67IazlfpPGz"}
 {"type":"textquestion","text":"text3 ","points":3,"choices":["KCArWG37LAPw8lkm","rzOZhOHZrFUe8Nid","2BNRoh56Fb7jP4Tt","zlRfOxCUrmNGOkNS","ResBGgDJuaKtpZnG","Dc2nroTtovk2fLAq"],"_id":"nmyhMq4GUpSJD6vx"}
 {"type":"dndquestion","text":"Reactive Systems are","points":5,"droptext":"Reactive Systems","choices":["uDWYjtkDf0kQUzkx","K5ycwBntmrGTfKJ2","6FYrUz0Ll3gdLgNB","6RqOHCfcSddl2F9F","j1oUT5iD8KrXEaDP","4siIHn3mt2ESOLSi","kyowluCBwrmP6i94","4EAezgVQsEHu0yJJ","g5dX1ZlgjEWAZCxo"],"_id":"sL8cIjJMzCScCGWS"}
