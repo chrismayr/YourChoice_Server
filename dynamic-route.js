@@ -147,6 +147,63 @@ module.exports = function(route, router) {
 	});
   });
   
+  router.get('/answeredSections', function(req, res) {
+	  Logger.log('Retrieve own answeredSections', req);
+	  // todo all the things
+	  var id = req.session.id;
+		global.db.answeredSections.find({ owner: req.session.username }, function (err, docs) {
+			if(docs!=null){
+				res.json( buildResponse('answeredSections', docs) );
+			}else {
+	      		res.status(400);
+	      		res.json( { status: "No documents found with this owner!" } );
+	   		 }
+		});
+
+	  });
+
+
+  router.get('/answeredSections/:id', function(req, res) {
+	Logger.log('Retrieve own answeredSections', req);
+    var id = req.params.id;
+   global.db.answeredSections.findOne({ $and: [{ _id: id }, { owner: req.session.username }] }, function (err, doc) {
+		if(doc!=null){
+			res.json( buildResponse('answeredSection', doc) );
+		}else {
+      		res.status(400);
+      		res.json( { status: "No document found with this id or you are not the owner!" } );
+   		 }
+	});
+  });
+  
+  router.get('/answeredQuestions', function(req, res) {
+	  Logger.log('Retrieve own answeredQuestions', req);
+	  // todo all the things
+	  var id = req.session.id;
+		global.db.answeredQuestions.find({ owner: req.session.username }, function (err, docs) {
+			if(docs!=null){
+				res.json( buildResponse('answeredQuestions', docs) );
+			}else {
+	      		res.status(400);
+	      		res.json( { status: "No documents found with this owner!" } );
+	   		 }
+		});
+
+	  });
+
+
+  router.get('/answeredQuestions/:id', function(req, res) {
+	Logger.log('Retrieve own answeredQuestion', req);
+    var id = req.params.id;
+   global.db.answeredQuestions.findOne({ $and: [{ _id: id }, { owner: req.session.username }] }, function (err, doc) {
+		if(doc!=null){
+			res.json( buildResponse('answeredQuestion', doc) );
+		}else {
+      		res.status(400);
+      		res.json( { status: "No document found with this id or you are not the owner!" } );
+   		 }
+	});
+  });
   
 
 };
