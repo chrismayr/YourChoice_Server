@@ -62,8 +62,8 @@ module.exports = function(name, router) {
 	                	//check if it is really the user who wants to modify his user profile
    	                	global.db.users.findOne({ _id: id }, function (err, doc) {
    	                		if(doc!=null){
-   	                			if (req.session.username == undefined ||
-   	                				req.session.username != doc.username){
+   	                			if (req.session.userId == undefined ||
+   	                				req.session.userId != doc.username){
    	                				//if all mandatory fields exist &&
    	                				//if there is no user with the same username or email &&
    	                				//if the logged in user is not the user which should be modified:
@@ -92,8 +92,8 @@ module.exports = function(name, router) {
     	  var id = req.url.split('/')[2];
           global.db.users.findOne({ _id: id }, function (err, doc) {
       			if(doc!=null){
-      				if (req.session.username == undefined ||
-      					req.session.username != doc.username){
+      				if (req.session.userId == undefined ||
+      					req.session.userId != doc.username){
       					//if there is a user in db with the id which should be deleted &&
       					//if the logged in user is not the user which should be deleted:
     	                //throw forbidden

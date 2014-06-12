@@ -12,7 +12,14 @@ var express    = require('express'),    // call express
     errorMiddleware = require('./utils/error-middleware'),
     dynamicRoute = require('./dynamic-route')
     Logger = require('./utils/logger'),
-    startQuizRoute = require('./routes/start-quiz-route');
+    startQuizRoute = require('./routes/start-quiz-route'),
+    getUsers = require('./filters/getUsers'),
+    getAnsweredQuizzes = require('./filters/getAnsweredQuizzes'),
+    getAnsweredQuiz = require('./filters/getAnsweredQuiz'),
+    getAnsweredSections = require('./filters/getAnsweredSections'),
+    getAnsweredSection =  require('./filters/getAnsweredSection'),
+    getAnsweredQuestions = require('./filters/getAnsweredQuestions'),
+    getAnsweredQuestion = require('./filters/getAnsweredQuestion');
 
 var port = process.env.PORT || 3333;    // set our port
 
@@ -60,12 +67,21 @@ app.use(session({
   , cookie: { path: '/', httpOnly: true, secure: false, maxAge: 9999999 }
 }));
 
+//filter middleware
+router.get('/users', getUsers); //retrieve all users without password
+router.get('/answeredQuizzes', getAnsweredQuizzes); //get all own answeredQuizzes
+router.get('/answeredQuizzes/:id', getAnsweredQuiz);  //get own answeredQuiz with specific id
+router.get('/answeredSections', getAnsweredSections); //get all own answeredSections
+router.get('/answeredSections/:id', getAnsweredSection); //get own answeredSection with specific id
+router.get('/answeredQuestions', getAnsweredQuestions); //get all own answeredQuestions
+router.get('/answeredQuestions/:id', getAnsweredQuestion); //get own answeredQuestion with specific id
+
 
 // REGISTER OUR ROUTES
 var routes = [
   { model: 'quiz', resource: 'quizzes', customValidation: true },
   { model: 'tag', resource: 'tags', customValidation: true },
-  { model: 'user', resource: 'users', customValidation: true, customFiltering: true },
+  { model: 'user', resource: 'users', customValidation: true},
   { model: 'section', resource: 'sections', customValidation: true },
   { model: 'question', resource: 'questions', customValidation: true },
   { model: 'choice', resource: 'choices', customValidation: true },
@@ -73,9 +89,7 @@ var routes = [
   { model: 'answeredSection', resource: 'answeredSections' },
   { model: 'quizSession', resource: 'quizSessions' },
   { model: 'answeredQuestion', resource: 'answeredQuestions' },
-  { model: 'answeredQuiz', resource: 'answeredQuizzes'}
-  //,
-  //{ model: 'login', resource: 'users' }
+  { model: 'answeredChoice', resource: 'answeredChoices'}
 ];
 
 // setup all routes using the dynamicRoute template
@@ -84,14 +98,12 @@ routes.forEach(function(route) { dynamicRoute(route, router); });
 router.post('/answeredQuizzes/:id', startQuizRoute);
 
 router.post('/logout', function(req, res) {
-    // TODO destroy session
     req.session.destroy();
     console.log('destroyed session');
     res.json({ status: "logged out"});
   });
 
 router.post('/login', function(req, res) {
-  // TODO init session
   Logger.log('Login', req);
 
   var username = req.body.username,
