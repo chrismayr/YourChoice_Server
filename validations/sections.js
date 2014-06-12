@@ -26,7 +26,7 @@ module.exports = function(name, router) {
             }else{
             	//if all mandatory fields exist:
             	//check if correct owner will be stored
-            	if (req.session.username != body[modelName].owner){
+            	if (req.session.userId != body[modelName].owner){
             		throw new Forbidden('You must be the owner if you want to save this section.');
             	}else{
             		//if all mandatory fields exist &&
@@ -49,9 +49,9 @@ module.exports = function(name, router) {
 			   var id = req.url.split('/')[2];
 		       global.db.sections.findOne({ _id: id }, function (err, doc) {
 		  			if(doc!=null){
-		  				if (req.session.username == undefined ||
-		  					req.session.username != doc.owner ||
-		  					req.session.username != body[modelName].owner){
+		  				if (req.session.userId == undefined ||
+		  					req.session.userId != doc.owner ||
+		  					req.session.userId != body[modelName].owner){
 			  					//if all mandatory fields exist &&
 	           					//if the logged in user is not the owner of the section which should be modified:
 	           					// throw Forbidden
@@ -75,8 +75,8 @@ module.exports = function(name, router) {
            	  	var id = req.url.split('/')[2];
                 global.db.sections.findOne({ _id: id }, function (err, doc) {
              			if(doc!=null){
-             				if (req.session.username == undefined ||
-             					req.session.username != doc.owner){
+             				if (req.session.userId == undefined ||
+             					req.session.userId != doc.owner){
              					//if there is a section in db with the id which should be deleted &&
              					//if the logged in user is not the owner of the section which should be deleted:
              					//throw forbidden

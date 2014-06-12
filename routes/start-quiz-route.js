@@ -9,7 +9,7 @@ module.exports = function(req, res) {
       newAnsweredSections = [],
       newAnsweredQuestions = [],
       newAnsweredChoices = [],
-      owner = req.session.username;//"1"; // TODO get actual user from session
+      owner = req.session.userId;
 
   // create all answered sections
   sectionIds.forEach(function (sectionId) {
