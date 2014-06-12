@@ -63,7 +63,7 @@ module.exports = function(name, router) {
    	                	global.db.users.findOne({ _id: id }, function (err, doc) {
    	                		if(doc!=null){
    	                			if (req.session.userId == undefined ||
-   	                				req.session.userId != doc.username){
+   	                				req.session.userId != doc._id){
    	                				//if all mandatory fields exist &&
    	                				//if there is no user with the same username or email &&
    	                				//if the logged in user is not the user which should be modified:
@@ -93,7 +93,7 @@ module.exports = function(name, router) {
           global.db.users.findOne({ _id: id }, function (err, doc) {
       			if(doc!=null){
       				if (req.session.userId == undefined ||
-      					req.session.userId != doc.username){
+      					req.session.userId != doc._id){
       					//if there is a user in db with the id which should be deleted &&
       					//if the logged in user is not the user which should be deleted:
     	                //throw forbidden
