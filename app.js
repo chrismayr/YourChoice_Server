@@ -16,6 +16,7 @@ var express    = require('express'),    // call express
     BadRequest = errors.badrequest,
     startQuizRoute = require('./routes/start-quiz-route'),
     getUsers = require('./filters/getUsers'),
+    getQuizzes = require('./filters/getQuizzes'),
     getAnsweredQuizzes = require('./filters/getAnsweredQuizzes'),
     getAnsweredQuiz = require('./filters/getAnsweredQuiz'),
     getAnsweredSections = require('./filters/getAnsweredSections'),
@@ -71,6 +72,7 @@ app.use(session({
 
 //filter middleware
 router.get('/users', getUsers); //retrieve all users without password
+router.get('/quizzes', getQuizzes); //retrieve all own and all public quizzes
 router.get('/answeredQuizzes', getAnsweredQuizzes); //get all own answeredQuizzes
 router.get('/answeredQuizzes/:id', getAnsweredQuiz);  //get own answeredQuiz with specific id
 router.get('/answeredSections', getAnsweredSections); //get all own answeredSections
