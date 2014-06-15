@@ -12,6 +12,8 @@ var express    = require('express'),    // call express
     errorMiddleware = require('./utils/error-middleware'),
     dynamicRoute = require('./dynamic-route')
     Logger = require('./utils/logger'),
+    errors = require('./utils/errors'),
+    BadRequest = errors.badrequest,
     startQuizRoute = require('./routes/start-quiz-route'),
     getUsers = require('./filters/getUsers'),
     getAnsweredQuizzes = require('./filters/getAnsweredQuizzes'),
@@ -75,7 +77,7 @@ router.get('/answeredSections', getAnsweredSections); //get all own answeredSect
 router.get('/answeredSections/:id', getAnsweredSection); //get own answeredSection with specific id
 router.get('/answeredQuestions', getAnsweredQuestions); //get all own answeredQuestions
 router.get('/answeredQuestions/:id', getAnsweredQuestion); //get own answeredQuestion with specific id
-
+router.post('/answeredQuizzes/:id', startQuizRoute);
 
 // REGISTER OUR ROUTES
 var routes = [
@@ -95,8 +97,6 @@ var routes = [
 // setup all routes using the dynamicRoute template
 routes.forEach(function(route) { dynamicRoute(route, router); });
 
-router.post('/answeredQuizzes/:id', startQuizRoute);
-
 router.post('/logout', function(req, res) {
     req.session.destroy();
     console.log('destroyed session');
@@ -112,16 +112,21 @@ router.post('/login', function(req, res) {
   global.db.users.findOne({ username: username }, function (err, doc) {
     if (doc != null) {
       if (doc.password == password) {
+    	console.log("login and userid: " + doc._id);
         console.log('init session');
         req.session.username = username;
         req.session.userId = doc._id;
         req.session.save();
         res.json(200, { user: doc });
       } else {
-        // throw new BadRequest('No User or not matching password!');
+    	  res.json({"name":"BadRequest","message":"No User or not matching password!"});
+          res.status(400);
+        //next(new BadRequest('No User or not matching password!'));
       }
     } else {
-      // throw new BadRequest('No User or not matching password!');
+    	res.json({"name":"BadRequest","message":"No User or not matching password!"});
+         res.status(400);
+      //next(new BadRequest('No User or not matching password!'));
     }
   });
 });
