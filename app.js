@@ -47,6 +47,7 @@ global.db.answeredQuestions = new Datastore({ filename: './data/answeredQuestion
 global.db.answeredChoices = new Datastore({ filename: './data/answeredChoices.db', autoload: true });
 global.db.questions = new Datastore({ filename: './data/questions.db', autoload: true });
 global.db.choices = new Datastore({ filename: './data/choices.db', autoload: true });
+global.db.sessions = new Datastore({ filename: './data/sessions.db', autoload: true });
 //=============================================================================
 
 // ROUTES FOR OUR API
@@ -93,7 +94,8 @@ var routes = [
   { model: 'answeredSection', resource: 'answeredSections' },
   { model: 'quizSession', resource: 'quizSessions' },
   { model: 'answeredQuestion', resource: 'answeredQuestions' },
-  { model: 'answeredChoice', resource: 'answeredChoices'}
+  { model: 'answeredChoice', resource: 'answeredChoices'},
+  { model: 'session', resource: 'sessions'}
 ];
 
 // setup all routes using the dynamicRoute template

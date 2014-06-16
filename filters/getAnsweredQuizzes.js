@@ -3,8 +3,10 @@ var Logger = require('../utils/logger'),
 
 module.exports = function(req, res) {
 	Logger.log('Retrieve own answeredquizzes', req);
-	  var id = req.session.id;
+	  var userId = req.session.userId;
+	  console.log(userId);
 		global.db.answeredQuizzes.find({ owner: req.session.userId }, function (err, docs) {
+			console.log(JSON.stringify(docs));
 			if(docs!=null){
 				res.json( buildResponse('answeredQuizzes', docs) );
 			}else {

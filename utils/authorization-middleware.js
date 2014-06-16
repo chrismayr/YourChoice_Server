@@ -18,6 +18,8 @@ module.exports = function (route) {
       } else {
         console.log('Authorization middlware: Authorized');
       }
+
+      console.log('Session UserId: ' + req.session.userId);
     }
 
     next();

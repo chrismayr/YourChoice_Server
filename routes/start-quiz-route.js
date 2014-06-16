@@ -5,6 +5,7 @@ var _ = require('lodash');
 
 module.exports = function(req, res) {
   var quizId = "" + req.params.id,
+      sessionId = req.body.sessionId;
       // just for debugging purposes
       refCount = {
         sections: 0,
@@ -26,8 +27,7 @@ module.exports = function(req, res) {
         answeredQuestions: [],
         answeredChoices: [],
       },
-      owner = req.session.userId,
-      owner = "1";  // TODO remove
+      owner = req.session.userId;
 
   // get quiz
   getQuiz(quizId, tree, refCount).then(function (quiz) {
@@ -104,7 +104,7 @@ module.exports = function(req, res) {
     return RSVP.all(promises);
   }).then(function (answeredSections) {
     // create answered quiz
-    return createAnsweredQuiz(tree.quiz, owner, tree, refCount);
+    return createAnsweredQuiz(tree.quiz, sessionId, owner, tree, refCount);
   }).then(function (answeredQuiz) {
     // create result
     var result = createResult(tree, refCount);
@@ -234,7 +234,7 @@ var getChoice = function (choiceId, tree, refCount) {
   return promise;
 }
 
-var createAnsweredQuiz = function (quiz, owner, tree, refCount) {
+var createAnsweredQuiz = function (quiz, sessionId, owner, tree, refCount) {
   Logger.log('create answered quiz');
 
   var promise = new RSVP.Promise(function(resolve, reject) {
@@ -244,7 +244,8 @@ var createAnsweredQuiz = function (quiz, owner, tree, refCount) {
       startTime: new Date().getTime(),
       quiz: quiz._id,
       answeredSections: answeredSectionIds,
-      owner: owner
+      owner: owner,
+      session: sessionId
     };
 
     global.db.answeredQuizzes.insert(body, function (err, answeredQuiz) {
