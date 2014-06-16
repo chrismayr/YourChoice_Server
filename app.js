@@ -90,10 +90,10 @@ var routes = [
   { model: 'section', resource: 'sections', customValidation: true },
   { model: 'question', resource: 'questions', customValidation: true },
   { model: 'choice', resource: 'choices', customValidation: true },
-  { model: 'answeredQuiz', resource: 'answeredQuizzes' },
-  { model: 'answeredSection', resource: 'answeredSections' },
+  { model: 'answeredQuiz', resource: 'answeredQuizzes', customValidation: true },
+  { model: 'answeredSection', resource: 'answeredSections', customValidation: true },
   { model: 'quizSession', resource: 'quizSessions' },
-  { model: 'answeredQuestion', resource: 'answeredQuestions' },
+  { model: 'answeredQuestion', resource: 'answeredQuestions', customValidation: true  },
   { model: 'answeredChoice', resource: 'answeredChoices'},
   { model: 'session', resource: 'sessions'}
 ];
